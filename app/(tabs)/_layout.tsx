@@ -1,20 +1,26 @@
-import { Link, Tabs } from 'expo-router'
-import { Pressable } from 'react-native'
-import { Text } from 'tamagui'
-import {Plus, Home, Newspaper, ClipboardList} from "@tamagui/lucide-icons";
+import { Link, Tabs } from "expo-router";
+import { Pressable } from "react-native";
+import { Text } from "tamagui";
+import {
+  Plus,
+  Home,
+  Newspaper,
+  ClipboardList,
+  Clipboard,
+} from "@tamagui/lucide-icons";
 
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: '#1f599c',
+        tabBarActiveTintColor: "#1f599c",
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Главная',
-          tabBarIcon: ({ color }) => <Home/>,
+          title: "Главная",
+          tabBarIcon: ({ color }) => <Home />,
           headerRight: () => (
             <Link href="/modal" asChild>
               <Pressable>
@@ -27,17 +33,24 @@ export default function TabLayout() {
       <Tabs.Screen
         name="news"
         options={{
-          title: 'Новости',
-          tabBarIcon: ({ color }) => <Newspaper/>,
+          title: "Новости",
+          tabBarIcon: ({ color }) => <Newspaper />,
         }}
       />
       <Tabs.Screen
         name="certificate"
         options={{
-          title: 'Справки',
-          tabBarIcon: ({color}) => <ClipboardList/>,
+          title: "Справки",
+          tabBarIcon: ({ color }) => <ClipboardList />,
+        }}
+      />
+      <Tabs.Screen
+        name="schedule"
+        options={{
+          title: "Расписание",
+          tabBarIcon: ({ color }) => <Clipboard />,
         }}
       />
     </Tabs>
-  )
+  );
 }
