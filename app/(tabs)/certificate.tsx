@@ -1,3 +1,4 @@
+// "use client"; // This directive is commented out to check if it affects the rendering of the third button
 import { Link } from "expo-router";
 import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, TouchableOpacity } from "react-native";
@@ -12,7 +13,7 @@ import {
   XStack,
   XGroup,
 } from "tamagui";
-import { ArmyForm, FormAboutTraning } from "@components/certificate/forms";
+import { ArmyForm, FormAboutTraning, FormAboutPayments } from "@components/certificate/forms";
 import SectionButton from "@components/certificate/SectionButton";
 
 export default function CertificateScreen() {
@@ -24,6 +25,8 @@ export default function CertificateScreen() {
         return <FormAboutTraning />;
       case 2:
         return <ArmyForm />;
+      case 3:
+        return <FormAboutTraning />;
       default:
         return null;
     }
@@ -38,7 +41,7 @@ export default function CertificateScreen() {
           variant="outlined"
           theme={selectedSection === 1 ? "blue" : "active"}
         >
-          Справка об обучение
+          Справка об обучении
         </Button>
         <Button
           size={"$3"}
@@ -47,6 +50,14 @@ export default function CertificateScreen() {
           theme={selectedSection === 2 ? "blue" : "active"}
         >
           Справка для военкомата
+        </Button>
+        <Button
+          size={"$3"}
+          onPress={() => setSelectedSection(3)}
+          variant="outlined"
+          theme={selectedSection === 3 ? "blue" : "active"}
+        >
+          Справка о степендии
         </Button>
       </XStack>
       {renderSelectedForm()}
@@ -65,7 +76,6 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: 'space-between',
-    gap: 15,
   },
   dynamicButtons: {
     flexDirection: "row",

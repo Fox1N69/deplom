@@ -4042,7 +4042,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tamagui/select@npm:1.98.1":
+"@tamagui/select@npm:1.98.1, @tamagui/select@npm:^1.98.1":
   version: 1.98.1
   resolution: "@tamagui/select@npm:1.98.1"
   dependencies:
@@ -6561,6 +6561,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"expo-linear-gradient@npm:~13.0.2":
+  version: 13.0.2
+  resolution: "expo-linear-gradient@npm:13.0.2"
+  peerDependencies:
+    expo: "*"
+  checksum: 2e05592bd9b3f156f0c5912a5cc152e80e930495d049382e4deec3103601ccc90b2e7cb5c208b51aa9d60386c5b762d40cc74cb2d1256a4605012e03d27be72a
+  languageName: node
+  linkType: hard
+
 "expo-linking@npm:~6.3.1":
   version: 6.3.1
   resolution: "expo-linking@npm:6.3.1"
@@ -8148,11 +8157,13 @@ __metadata:
     "@tamagui/create-theme": "npm:^1.98.1"
     "@tamagui/lucide-icons": "npm:^1.98.1"
     "@tamagui/metro-plugin": "npm:^1.98.1"
+    "@tamagui/select": "npm:^1.98.1"
     "@types/react": "npm:~18.2.79"
     "@types/react-native": "npm:^0.73.0"
     babel-preset-expo: "npm:~11.0.0"
     expo: "npm:^51.0.0"
     expo-font: "npm:~12.0.5"
+    expo-linear-gradient: "npm:~13.0.2"
     expo-linking: "npm:~6.3.1"
     expo-router: "npm:~3.5.14"
     expo-splash-screen: "npm:~0.27.4"
