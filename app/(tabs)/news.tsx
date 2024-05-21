@@ -6,7 +6,7 @@ export default function NewsScreen() {
       <Text fontSize={20}>Новости</Text>
 
       <View>
-        
+       <WebView source={{ uri: 'https://www.google.com' }} />
       </View>
     </View>
   )

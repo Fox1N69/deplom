@@ -1,9 +1,9 @@
-// "use client"; // This directive is commented out to check if it affects the rendering of the third button
+"use client";
 import { Link } from "expo-router";
 import { useEffect, useState } from "react";
-import { Pressable, StyleSheet, TouchableOpacity } from "react-native";
+import { Pressable, StyleSheet, TouchableOpacity, Button } from "react-native";
 import {
-  Button,
+  Button as TamaguiButton,
   Form,
   H4,
   Text,
@@ -12,9 +12,16 @@ import {
   stylePropsAll,
   XStack,
   XGroup,
+  Select,
+  DialogTitle,
 } from "tamagui";
-import { ArmyForm, FormAboutTraning, FormAboutPayments } from "@components/certificate/forms";
+import {
+  ArmyForm,
+  FormAboutTraning,
+  FormAboutPayments,
+} from "@components/certificate/forms";
 import SectionButton from "@components/certificate/SectionButton";
+import { CertificateMenu } from "@components/certificate/dropDownMenu";
 
 export default function CertificateScreen() {
   const [selectedSection, setSelectedSection] = useState<number | null>(null);
@@ -26,7 +33,7 @@ export default function CertificateScreen() {
       case 2:
         return <ArmyForm />;
       case 3:
-        return <FormAboutTraning />;
+        return <FormAboutPayments />;
       default:
         return null;
     }
@@ -34,33 +41,33 @@ export default function CertificateScreen() {
 
   return (
     <View style={styles.container}>
-      <XStack style={styles.menu}>
-        <Button
-          size={"$3"}
-          onPress={() => setSelectedSection(1)}
-          variant="outlined"
-          theme={selectedSection === 1 ? "blue" : "active"}
-        >
-          Справка об обучении
-        </Button>
-        <Button
-          size={"$3"}
-          onPress={() => setSelectedSection(2)}
-          variant="outlined"
-          theme={selectedSection === 2 ? "blue" : "active"}
-        >
-          Справка для военкомата
-        </Button>
-        <Button
-          size={"$3"}
-          onPress={() => setSelectedSection(3)}
-          variant="outlined"
-          theme={selectedSection === 3 ? "blue" : "active"}
-        >
-          Справка о степендии
-        </Button>
-      </XStack>
-      {renderSelectedForm()}
+      <View style={styles.menu}>
+        <CertificateMenu onSelect={setSelectedSection} />
+      </View>
+
+      <View>
+        {selectedSection === null && (
+          <View style={styles.informView}>
+            <Text fontSize={20} fontWeight={"bold"}>
+              Увожаемые студенты
+            </Text>
+            <Text fontSize={16}>
+              1. Если Вам необходима справка о том, что Вы обучаетесь в Колледже
+              цифровых и педагогических технологий — выберите раздел «Справка об
+              обучении»;
+            </Text>
+            <Text fontSize={16}>
+              2. Если Вам необходима справка о выплатах — выберите раздел
+              «Справка о стипендии и соц.выплатах»;
+            </Text>
+            <Text fontSize={16}>
+              3. Если Вам необходима справка для предоставления в военкомат —
+              выберите раздел «Справка в военкомат»;
+            </Text>
+          </View>
+        )}
+        {selectedSection !== null && renderSelectedForm()}
+      </View>
     </View>
   );
 }
@@ -75,11 +82,18 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     display: "flex",
     flexDirection: "row",
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
+    width: "100%",
   },
   dynamicButtons: {
     flexDirection: "row",
     justifyContent: "center",
     marginBottom: 10,
+  },
+  informView: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 20,
+    padding: 15,
   },
 });

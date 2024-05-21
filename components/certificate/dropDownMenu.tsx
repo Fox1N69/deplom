@@ -1,8 +1,10 @@
 import { Check, ChevronDown, ChevronUp } from "@tamagui/lucide-icons";
 import { useMemo, useState } from "react";
+import { StyleSheet } from "react-native";
 import type { FontSizeTokens, SelectProps } from "tamagui";
 import {
   Adapt,
+  Button,
   Label,
   Select,
   Sheet,
@@ -12,29 +14,37 @@ import {
 } from "tamagui";
 import { LinearGradient } from "tamagui/linear-gradient";
 
-export const SelectDemo = () => {
-  return (
-    <XStack ai="center" gap="$4">
-      <Label htmlFor="select-demo-1" f={1} miw={80}>
-        Custom
-      </Label>
-      <SelectDemoItem id="select-demo-1" />
-    </XStack>
-  );
+interface CertificateMenuProps {
+  onSelect: (sectionId: number) => void;
 }
 
-export function SelectDemoItem(props: SelectProps) {
-  const [val, setVal] = useState("apple");
+export const CertificateMenu = ({ onSelect }: CertificateMenuProps) => {
+  return <CertificateSelect onSelect={onSelect} />;
+};
+
+export function CertificateSelect({
+  onSelect,
+  ...props
+}: SelectProps & { onSelect: (sectionId: number) => void }) {
+  const [val, setVal] = useState("Выберите тип справки");
 
   return (
     <Select
       value={val}
-      onValueChange={setVal}
+      onValueChange={(newValue) => {
+        const selectedItem = items.find(
+          (item) => item.name.toLowerCase() === newValue
+        );
+        if (selectedItem) {
+          onSelect(selectedItem.value);
+          setVal(selectedItem.name);
+        }
+      }}
       disablePreventBodyScroll
       {...props}
     >
-      <Select.Trigger width={220} iconAfter={ChevronDown}>
-        <Select.Value placeholder="Something" />
+      <Select.Trigger width={"100%"} iconAfter={ChevronDown}>
+        <Select.Value placeholder="Выберите тип справки" />
       </Select.Trigger>
 
       <Adapt when="sm" platform="touch">
@@ -44,8 +54,8 @@ export function SelectDemoItem(props: SelectProps) {
           dismissOnSnapToBottom
           animationConfig={{
             type: "spring",
-            damping: 20,
-            mass: 1.2,
+            damping: 18,
+            mass: 0.5,
             stiffness: 250,
           }}
         >
@@ -55,7 +65,7 @@ export function SelectDemoItem(props: SelectProps) {
             </Sheet.ScrollView>
           </Sheet.Frame>
           <Sheet.Overlay
-            animation="lazy"
+            animation="slow"
             enterStyle={{ opacity: 0 }}
             exitStyle={{ opacity: 0 }}
           />
@@ -91,7 +101,7 @@ export function SelectDemoItem(props: SelectProps) {
           minWidth={200}
         >
           <Select.Group>
-            <Select.Label>Fruits</Select.Label>
+            <Select.Label>Выберите тип справки</Select.Label>
             {/* for longer lists memoizing these is useful */}
             {useMemo(
               () =>
@@ -154,27 +164,14 @@ export function SelectDemoItem(props: SelectProps) {
   );
 }
 
+const styles = StyleSheet.create({
+  selectItem: {
+    borderColor: "black",
+  },
+});
+
 const items = [
-  { name: "Apple" },
-  { name: "Pear" },
-  { name: "Blackberry" },
-  { name: "Peach" },
-  { name: "Apricot" },
-  { name: "Melon" },
-  { name: "Honeydew" },
-  { name: "Starfruit" },
-  { name: "Blueberry" },
-  { name: "Raspberry" },
-  { name: "Strawberry" },
-  { name: "Mango" },
-  { name: "Pineapple" },
-  { name: "Lime" },
-  { name: "Lemon" },
-  { name: "Coconut" },
-  { name: "Guava" },
-  { name: "Papaya" },
-  { name: "Orange" },
-  { name: "Grape" },
-  { name: "Jackfruit" },
-  { name: "Durian" },
+  { name: "Справка об обучении", value: 1 },
+  { name: "Справка для военкомата", value: 2 },
+  { name: "Справка о степендии", value: 3 },
 ];

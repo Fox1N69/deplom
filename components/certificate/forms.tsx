@@ -14,7 +14,6 @@ import {
   XGroup,
   YGroup,
 } from "tamagui";
-import {SelectDemo} from "./dropDownMenu";
 
 export const FormAboutTraning = () => {
   return (
@@ -36,7 +35,6 @@ export const FormAboutTraning = () => {
         <Input />
         <Label>Выберите группу</Label>
         <Input />
-        <SelectDemo/>
 
         <YGroup>
           <Label>Количество</Label>
