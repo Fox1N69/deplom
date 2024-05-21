@@ -16,7 +16,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.fox1n79.exporouterexample"
     },
     "android": {
       "adaptiveIcon": {
@@ -35,6 +36,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "ca2d8fd0-fa5a-4628-a4fe-e17ba212ddb1"
+      }
     }
   }
 }
