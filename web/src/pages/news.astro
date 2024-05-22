@@ -1,0 +1,44 @@
+---
+import Layout from "../layouts/Layout.astro"
+---
+
+<Layout title="News">
+  <main>
+    <h1 class="">Новости</h1>
+    <div class="news__wrapper flex flex-col gap-8 justify-center items-center">
+      <div class="news__card border  w-[300px] flex flex-row ">
+        <img src="favicon.svg" alt="" width="50px" height="50px">
+        <div class="news__card-content">
+          <h3>Новость 1</h3>
+          <p>Описание новости 1</p>
+        </div>
+      </div>
+      <div class="news__card border  w-[300px] ">
+        <h3>Новость 1</h3>
+        <p>Описание новости 1</p>
+        <>
+          <div class="all__news"></div>
+        </>
+      </div>
+      <div class="news__card border  w-[300px] ">
+        <h3>Новость 1</h3>
+        <p>Описание новости 1</p>
+      </div>
+      <div class="news__card border  w-[300px] ">
+        <h3>Новость 1</h3>
+        <p>Описание новости 1</p>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style lang="scss" scoped>
+  main{
+
+  }
+  .news__wrapper {
+
+  }
+
+</style>
+
