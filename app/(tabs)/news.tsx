@@ -49,25 +49,26 @@ export default function NewsScreen() {
             onPress={() =>
               router.push({
                 pathname: "/news/[id]",
-                params: {id: news.id}
+                params: { id: news.id },
               })
             }
           >
             <XStack
               borderWidth={1}
+              borderRadius={10}
               width={300}
               flexDirection="row"
               padding={10}
+              alignItems="flex-start"
             >
               <Image
-                source={{ uri: "favicon.png" }}
-                style={{ width: 50, height: 50 }}
+                source={{ uri: 'https://picsum.photos/200/300' }}
+                style={{ width: 25, height: 25, }}
               />
-              <YStack padding={10}>
-                <Text onPress={() => router.push("/NewsDetail")}>
-                  {news.id}
-                </Text>
-                <Text style={styles.title}>{news.title}</Text>
+              <YStack flex={1}>
+                <XStack flexDirection="row" alignItems="center">
+                  <Text style={styles.title}>{news.title}</Text>
+                </XStack>
                 <Text>{news.description}</Text>
               </YStack>
             </XStack>
@@ -86,5 +87,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: "bold",
+    flexShrink: 1,
   },
 });

@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
-import { Text, View } from "tamagui";
+import {  Text, View, ScrollView } from "tamagui";
+import { StyleSheet } from "react-native";
 
 interface News {
   title: string;
@@ -13,21 +14,28 @@ export default function NewsDetail() {
 
   useEffect(() => {
     fetch(`http://localhost:8000/api/news/${id}/full`)
-      .then(response => response.json())
-      .then(data => setNews(data))
-      .catch(error => console.error('Ошибка при загрузке новости:', error));
+      .then((response) => response.json())
+      .then((data) => setNews(data))
+      .catch((error) => console.error("Ошибка при загрузке новости:", error));
   }, [id]);
 
   return (
-    <View>
+    <ScrollView>
       {news ? (
-        <View>
-          <Text>{news.title}</Text>
-          <Text>{news.content}</Text>
+        <View style={styles.container}>
+          <Text fontSize={20} fontWeight={'bold'} textAlign='left'>{news.title}</Text>
+          <Text fontSize={16}>{news.content}</Text>
         </View>
       ) : (
         <Text>Загрузка новости...</Text>
       )}
-    </View>
+    </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: 30,
+    padding: 20,
+  }
+})
