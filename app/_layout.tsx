@@ -11,10 +11,11 @@ import "../tamagui-web.css";
 
 import { config } from "../tamagui.config";
 import { useFonts } from "expo-font";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import NotFoundScreen from "./+not-found";
 import NewsScreen from "./(tabs)/news";
 import HomeScreen from "./(tabs)";
+import WelcomScreen from "@components/Welcom/WelcomAnimation";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -50,7 +51,32 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
+  const [appReady, setAppReady] = useState(false);
+  const [splashAnimationFinished, setSplashAnimationFinished] = useState(false);
+
   const colorScheme = useColorScheme();
+  const [fontsLoaded, fontsError] = useFonts({
+    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+  });
+
+  useEffect(() => {
+    if (fontsLoaded || fontsError) {
+      setAppReady(true);
+    }
+  }, [fontsLoaded || fontsError]);
+
+  const showAnimatedSplash = !appReady || !splashAnimationFinished;
+  if (showAnimatedSplash) {
+    return (
+      <WelcomScreen
+        onAnimationFinish={(isCancelled) => {
+          if (!isCancelled) {
+            setSplashAnimationFinished(true);
+          }
+        }}
+      />
+    );
+  } 
 
   return (
     <TamaguiProvider config={config} defaultTheme={colorScheme as any}>

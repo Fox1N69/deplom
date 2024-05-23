@@ -19,7 +19,12 @@ import {
   YStack,
 } from "tamagui";
 import axios from "axios";
-import { Alert, GestureResponderEvent } from "react-native";
+import {
+  Alert,
+  GestureResponderEvent,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { AlertTriangle } from "@tamagui/lucide-icons";
 
 export const FormAboutTraning = () => {
@@ -52,73 +57,84 @@ export const FormAboutTraning = () => {
       Alert.alert(
         "Ошибка",
         "Справка не было отправленна, так как произошел сбой на сервере \n попробуйте позже или отправти заявку через сайт: https://kcpt72.ru/"
-      )
+      );
     }
   };
 
   return (
-    <View>
-      <Form
-        onSubmit={() => handleSubmit}
-        minWidth={400}
-        gap="$2"
-        borderWidth={1}
-        borderRadius="$4"
-        borderColor="$borderColor"
-        paddingHorizontal="$6"
-      >
-        <Input
-          placeholder="Имя"
-          value={formData.first_name}
-          onChangeText={(value) => handleChange("first_name", value)}
-        />
-        <Input
-          placeholder="Фамилия"
-          value={formData.last_name}
-          onChangeText={(value) => handleChange("last_name", value)}
-        />
-        <Input
-          placeholder="Отчество"
-          value={formData.patronymic}
-          onChangeText={(value) => handleChange("patronymic", value)}
-        />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <ScrollView contentContainerStyle={{flexGrow: 1, paddingBottom: 100 }}>
+        <View style={{paddingBottom: 40}}>
+          <Form
+            onSubmit={() => handleSubmit}
+            minWidth={400}
+            gap="$2"
+            borderWidth={1}
+            borderRadius="$4"
+            borderColor="$borderColor"
+            paddingHorizontal="$6"
+          >
+            <Label>ФИО Студента*</Label>
+            <Input
+              placeholder="Имя"
+              value={formData.first_name}
+              onChangeText={(value) => handleChange("first_name", value)}
+            />
+            <Input
+              placeholder="Фамилия"
+              value={formData.last_name}
+              onChangeText={(value) => handleChange("last_name", value)}
+            />
+            <Input
+              placeholder="Отчество"
+              value={formData.patronymic}
+              onChangeText={(value) => handleChange("patronymic", value)}
+            />
 
-        <Label>Специальность</Label>
-        <Input
-          placeholder="ИСИП"
-          value={formData.direction}
-          onChangeText={(value) => handleChange("direction", value)}
-        />
-        <Label>Группа</Label>
-        <Input
-          placeholder="21-11-1"
-          value={formData.group}
-          onChangeText={(value) => handleChange("group", value)}
-        />
+            <Label>Специальность</Label>
+            <Input
+              placeholder="ИСИП"
+              value={formData.direction}
+              onChangeText={(value) => handleChange("direction", value)}
+            />
+            <Label>Группа</Label>
+            <Input
+              placeholder="21-11-1"
+              value={formData.group}
+              onChangeText={(value) => handleChange("group", value)}
+            />
 
-        <YGroup>
-          <Label>Количество</Label>
-          <Input
-            size={"$2"}
-            width={90}
-            value={formData.quantity}
-            onChangeText={(value) => handleChange("quantity", value)}
-          />
-          <Label>Примичание</Label>
-          <TextArea
-            value={formData.message}
-            onChangeText={(value) => handleChange("message", value)}
-          />
-        </YGroup>
-        <Button
-          variant="outlined"
-          theme={"red_active"}
-          onPress={(e) => handleSubmit(e)}
-        >
-          Отправить
-        </Button>
-      </Form>
-    </View>
+            <YGroup>
+              <Label>Количество</Label>
+              <Input
+                size={"$2"}
+                width={90}
+                value={formData.quantity}
+                onChangeText={(value) => handleChange("quantity", value)}
+              />
+              <Label>Примичание</Label>
+              <TextArea
+                value={formData.message}
+                onChangeText={(value) => handleChange("message", value)}
+              />
+            </YGroup>
+            <Text style={{fontSize: 12}}>
+              Нажимая на кнопку ОТПРАВИТЬ, Вы соглашаетесь c Политикой
+              конфиденциальности
+            </Text>
+            <Button
+              variant="outlined"
+              theme={"red_active"}
+              onPress={(e) => handleSubmit(e)}
+            >
+              Отправить
+            </Button>
+          </Form>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
