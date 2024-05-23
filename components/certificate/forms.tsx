@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import {
+  AlertDialog,
+  AlertDialogTrigger,
   Button,
   Form,
   H4,
@@ -12,10 +14,13 @@ import {
   TextArea,
   View,
   XGroup,
+  XStack,
   YGroup,
+  YStack,
 } from "tamagui";
 import axios from "axios";
-import { GestureResponderEvent } from "react-native";
+import { Alert, GestureResponderEvent } from "react-native";
+import { AlertTriangle } from "@tamagui/lucide-icons";
 
 export const FormAboutTraning = () => {
   const [formData, setFormData] = useState({
@@ -29,7 +34,7 @@ export const FormAboutTraning = () => {
   });
 
   const handleChange = (name: string, value: string) => {
-    setFormData({ ...formData, [name]: value});
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (e: GestureResponderEvent) => {
@@ -38,8 +43,16 @@ export const FormAboutTraning = () => {
     try {
       await axios.post("http://localhost:8000/api/emailTraning", formData);
       console.log("Data sent successfully");
+      Alert.alert(
+        "Заявка отправлена",
+        "Справка будет готова в течение 3 рабочих дней"
+      );
     } catch (error) {
       console.error("Error sending data", error);
+      Alert.alert(
+        "Ошибка",
+        "Справка не было отправленна, так как произошел сбой на сервере \n попробуйте позже или отправти заявку через сайт: https://kcpt72.ru/"
+      )
     }
   };
 
@@ -56,26 +69,31 @@ export const FormAboutTraning = () => {
       >
         <Input
           placeholder="Имя"
-          value={formData.first_name} onChangeText={(value) => handleChange("first_name", value)}
+          value={formData.first_name}
+          onChangeText={(value) => handleChange("first_name", value)}
         />
         <Input
           placeholder="Фамилия"
-          value={formData.last_name} onChangeText={(value) => handleChange("last_name", value)}
+          value={formData.last_name}
+          onChangeText={(value) => handleChange("last_name", value)}
         />
         <Input
           placeholder="Отчество"
-          value={formData.patronymic} onChangeText={(value) => handleChange("patronymic", value)}
+          value={formData.patronymic}
+          onChangeText={(value) => handleChange("patronymic", value)}
         />
 
         <Label>Специальность</Label>
         <Input
           placeholder="ИСИП"
-          value={formData.direction} onChangeText={(value) => handleChange("direction", value)}
+          value={formData.direction}
+          onChangeText={(value) => handleChange("direction", value)}
         />
         <Label>Группа</Label>
         <Input
           placeholder="21-11-1"
-          value={formData.group} onChangeText={(value) => handleChange("group", value)}
+          value={formData.group}
+          onChangeText={(value) => handleChange("group", value)}
         />
 
         <YGroup>
@@ -83,12 +101,20 @@ export const FormAboutTraning = () => {
           <Input
             size={"$2"}
             width={90}
-            value={formData.quantity} onChangeText={(value) => handleChange("quantity", value)}
+            value={formData.quantity}
+            onChangeText={(value) => handleChange("quantity", value)}
           />
           <Label>Примичание</Label>
-          <TextArea value={formData.message} onChangeText={(value) => handleChange("message", value)} />
+          <TextArea
+            value={formData.message}
+            onChangeText={(value) => handleChange("message", value)}
+          />
         </YGroup>
-        <Button variant="outlined" theme={"red_active"} onPress={(e) => handleSubmit(e)} >
+        <Button
+          variant="outlined"
+          theme={"red_active"}
+          onPress={(e) => handleSubmit(e)}
+        >
           Отправить
         </Button>
       </Form>
@@ -123,7 +149,7 @@ export const FormAboutPayments = () => {
           <Label>Примичание</Label>
           <TextArea />
         </YGroup>
-        <Button variant="outlined" theme={"red_active"} >
+        <Button variant="outlined" theme={"red_active"}>
           Отправить
         </Button>
       </Form>
