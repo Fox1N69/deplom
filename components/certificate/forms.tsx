@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Form,
@@ -14,12 +14,39 @@ import {
   XGroup,
   YGroup,
 } from "tamagui";
+import axios from "axios";
+import { GestureResponderEvent } from "react-native";
 
 export const FormAboutTraning = () => {
+  const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
+    patronymic: "",
+    direction: "",
+    group: "",
+    quantity: "1",
+    message: "",
+  });
+
+  const handleChange = (name: string, value: string) => {
+    setFormData({ ...formData, [name]: value});
+  };
+
+  const handleSubmit = async (e: GestureResponderEvent) => {
+    e.preventDefault();
+    console.log("Sending data:", formData); // Log the data being sent
+    try {
+      await axios.post("http://localhost:8000/api/emailTraning", formData);
+      console.log("Data sent successfully");
+    } catch (error) {
+      console.error("Error sending data", error);
+    }
+  };
+
   return (
     <View>
       <Form
-        onSubmit={() => console.log("he")}
+        onSubmit={() => handleSubmit}
         minWidth={400}
         gap="$2"
         borderWidth={1}
@@ -27,22 +54,41 @@ export const FormAboutTraning = () => {
         borderColor="$borderColor"
         paddingHorizontal="$6"
       >
-        <Input placeholder="Имя" />
-        <Input placeholder="Фамилия" />
-        <Input placeholder="Отчество" />
+        <Input
+          placeholder="Имя"
+          value={formData.first_name} onChangeText={(value) => handleChange("first_name", value)}
+        />
+        <Input
+          placeholder="Фамилия"
+          value={formData.last_name} onChangeText={(value) => handleChange("last_name", value)}
+        />
+        <Input
+          placeholder="Отчество"
+          value={formData.patronymic} onChangeText={(value) => handleChange("patronymic", value)}
+        />
 
-        <Label>Выбирите специальность</Label>
-        <Input />
-        <Label>Выберите группу</Label>
-        <Input />
+        <Label>Специальность</Label>
+        <Input
+          placeholder="ИСИП"
+          value={formData.direction} onChangeText={(value) => handleChange("direction", value)}
+        />
+        <Label>Группа</Label>
+        <Input
+          placeholder="21-11-1"
+          value={formData.group} onChangeText={(value) => handleChange("group", value)}
+        />
 
         <YGroup>
           <Label>Количество</Label>
-          <Input size={"$2"} width={90} />
+          <Input
+            size={"$2"}
+            width={90}
+            value={formData.quantity} onChangeText={(value) => handleChange("quantity", value)}
+          />
           <Label>Примичание</Label>
-          <TextArea />
+          <TextArea value={formData.message} onChangeText={(value) => handleChange("message", value)} />
         </YGroup>
-        <Button variant="outlined" theme={"red_active"}>
+        <Button variant="outlined" theme={"red_active"} onPress={(e) => handleSubmit(e)} >
           Отправить
         </Button>
       </Form>
@@ -77,14 +123,13 @@ export const FormAboutPayments = () => {
           <Label>Примичание</Label>
           <TextArea />
         </YGroup>
-        <Button variant="outlined" theme={"red_active"}>
+        <Button variant="outlined" theme={"red_active"} >
           Отправить
         </Button>
       </Form>
     </View>
   );
 };
-
 
 export const ArmyForm = () => {
   return (

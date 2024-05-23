@@ -24,6 +24,7 @@
     "@tamagui/lucide-icons": "^1.98.1",
     "@tamagui/metro-plugin": "^1.98.1",
     "@tamagui/select": "^1.98.1",
+    "axios": "^1.7.2",
     "babel-preset-expo": "~11.0.0",
     "expo": "^51.0.0",
     "expo-font": "~12.0.5",

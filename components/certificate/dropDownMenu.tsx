@@ -43,8 +43,8 @@ export function CertificateSelect({
       disablePreventBodyScroll
       {...props}
     >
-      <Select.Trigger width={"100%"} iconAfter={ChevronDown}>
-        <Select.Value placeholder="Выберите тип справки" />
+      <Select.Trigger width={"100%"} iconAfter={ChevronDown} >
+        <Select.Value placeholder="Выберите тип справки"/>
       </Select.Trigger>
 
       <Adapt when="sm" platform="touch">
