@@ -60,6 +60,7 @@ function NewsScreen() {
       <YStack space="$4" alignItems="center">
         {newsData.map((news, index) => (
           <Pressable
+            key={news.id}
             onPress={() =>
               router.push({
                 pathname: "/news/[id]",
