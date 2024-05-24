@@ -1,9 +1,24 @@
-import { Text, View } from 'tamagui'
+import * as React from 'react';
+import { Text, View } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-export default function HomeScreen() {
+const Stack = createStackNavigator();
+
+// Создаем навигационный стек
+function HomeScreen() {
   return (
-    <View flex={1} alignItems="center">
-      <Text fontSize={20}>Tab One</Text>
+    <View>
+      <Text>Hello</Text>
     </View>
-  )
+  );
+}
+
+export default function HomeStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="index" component={HomeScreen} options={{
+        headerTitle: 'Главный экран' 
+      }} />
+    </Stack.Navigator>
+  );
 }

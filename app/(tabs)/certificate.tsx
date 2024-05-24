@@ -22,8 +22,22 @@ import {
 } from "@components/certificate/forms";
 import SectionButton from "@components/certificate/SectionButton";
 import { CertificateMenu } from "@components/certificate/dropDownMenu";
+import { createStackNavigator } from "@react-navigation/stack";
 
-export default function CertificateScreen() {
+const Stack = createStackNavigator()
+
+export default function CertificateStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="certificate" component={CertificateScreen} options={{
+        headerTitle: 'Заказать справку' 
+      }} />
+    </Stack.Navigator>
+  );
+}
+
+
+function CertificateScreen() {
   const [selectedSection, setSelectedSection] = useState<number | null>(null);
 
   const renderSelectedForm = () => {
@@ -71,6 +85,7 @@ export default function CertificateScreen() {
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {

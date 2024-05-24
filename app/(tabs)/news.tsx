@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Image, Pressable, ScrollView, StyleSheet } from "react-native";
 import { Text, YStack, XStack, View } from "tamagui";
 import { Link, router } from "expo-router";
+import { createStackNavigator } from "@react-navigation/stack";
 
 interface NewsItem {
   id: number;
@@ -17,7 +18,20 @@ interface NewsApiResponseItem {
   link: string;
 }
 
-export default function NewsScreen() {
+
+const Stack = createStackNavigator();
+
+export default function NewsStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="news" component={NewsScreen} options={{
+        headerTitle: 'Новости' 
+      }} />
+    </Stack.Navigator>
+  );
+}
+
+function NewsScreen() {
   const [newsData, setNewsData] = useState<NewsItem[]>([]);
 
   useEffect(() => {
