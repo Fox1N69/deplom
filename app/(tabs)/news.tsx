@@ -4,6 +4,7 @@ import { Text, YStack, XStack, View, Image, Button } from "tamagui";
 import { Link, router } from "expo-router";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NewsCard } from "@components/News/NewsCard";
+import { useNavigation } from "@react-navigation/native";
 
 interface NewsItem {
   id: number;

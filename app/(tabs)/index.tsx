@@ -19,10 +19,6 @@ function HomeScreen() {
 export default function HomeStack() {
   const navigation = useNavigation();
 
-  const openModal = () => {
-    navigation.navigate('Modal')
-  }
-
 
   return (
     <Stack.Navigator >

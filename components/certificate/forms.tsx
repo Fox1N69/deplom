@@ -171,10 +171,8 @@ export const FormAboutPayments = () => {
         onSubmit={() => console.log("he")}
         minWidth={400}
         gap="$2"
-        borderWidth={1}
-        borderRadius="$4"
         borderColor="$borderColor"
-        paddingHorizontal="$6"
+        paddingHorizontal="$4"
       >
         <Label>ФИО Студента*</Label>
         <Input value={formData.fio} />
@@ -184,11 +182,17 @@ export const FormAboutPayments = () => {
         <Label>Выберите группу</Label>
         <Input value={formData.group} />
         <Label>Укажите период выплат</Label>
-        <Input placeholder="01.01.2022-01.01.2023" />
+        <Input placeholder="01.01.2022 - 01.01.2023" />
         <Label>Отправка* </Label>
-        <XStack>
+        <XStack gap={5} alignItems="center">
           <Checkbox />
-          <Text></Text>
+          <Text fontSize={"$3"}>
+            Отправить справку на почтку (указать e-mail ниже)
+          </Text>
+        </XStack>
+        <XStack gap={5} alignItems="center">
+          <Checkbox />
+          <Text fontSize={"$3"}>Заберу оригинал в бухгалтерии колледжа</Text>
         </XStack>
 
         <YGroup>
@@ -211,10 +215,39 @@ export const FormAboutPayments = () => {
 };
 
 export const ArmyForm = () => {
+  const [formData, setFormData] = useState({
+    fio: "",
+    specialty: "",
+    group: "",
+    army_name: "",
+    message: "",
+  });
+
+  const handleChange = (name: string, value: string) => {
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e: GestureResponderEvent) => {
+    e.preventDefault();
+    try {
+      await axios.post("http://localhost:8000/api/emailArmy", formData);
+      Alert.alert(
+        "Заявка отправлена",
+        "Ваша информация была успешно отправлена и будет обработана в ближайшее время."
+      );
+    } catch (error) {
+      console.error("Error sending data", error);
+      Alert.alert(
+        "Ошибка",
+        "Произошла ошибка при отправке данных. Пожалуйста, попробуйте еще раз."
+      );
+    }
+  };
+
   return (
     <View>
       <Form
-        onSubmit={() => console.log("he")}
+        onSubmit={() => handleSubmit}
         minWidth={400}
         gap="$2"
         borderWidth={1}
@@ -223,24 +256,45 @@ export const ArmyForm = () => {
         paddingHorizontal="$6"
       >
         <Label>ФИО Студента*</Label>
-        <Input placeholder="ФИО" />
+        <Input
+          placeholder="ФИО"
+          value={formData.fio}
+          onChangeText={(value) => handleChange("fio", value)}
+        />
 
-        <Label>Выбирите специальность</Label>
-        <Input />
-        <Label>Выберите группу</Label>
-        <Input />
+        <Label>Выберите специальность*</Label>
+        <Input
+          value={formData.specialty}
+          onChangeText={(value) => handleChange("specialty", value)}
+        />
+        <Label>Выберите группу*</Label>
+        <Input
+          value={formData.group}
+          onChangeText={(value) => handleChange("group", value)}
+        />
 
         <YGroup>
-          <Label>Наиминование военкомата</Label>
-          <Input placeholder="ФКУ Отдел военного комисариата" />
+          <Label>Наименование военкомата</Label>
+          <Input
+            placeholder="ФКУ Отдел военного комисариата"
+            value={formData.army_name}
+            onChangeText={(value) => handleChange("army_name", value)}
+          />
           <Label>Ваше сообщение</Label>
-          <TextArea />
+          <TextArea
+            value={formData.message}
+            onChangeText={(value) => handleChange("message", value)}
+          />
         </YGroup>
         <Text style={{ fontSize: 12 }}>
           Нажимая на кнопку ОТПРАВИТЬ, Вы соглашаетесь c Политикой
           конфиденциальности
         </Text>
-        <Button variant="outlined" theme={"red_active"}>
+        <Button
+          variant="outlined"
+          theme={"red_active"}
+          onPress={(e) => handleSubmit(e)}
+        >
           Отправить
         </Button>
       </Form>
