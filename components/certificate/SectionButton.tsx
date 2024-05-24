@@ -1,17 +1,22 @@
-import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import React from "react";
+import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import { Button } from "tamagui";
 
-const SectionButton = ({ title, active, onPress }) => {
+interface SectionButtonProps {
+  title: string;
+  active: boolean;
+  onPress: () => void;
+}
+
+const SectionButton = ({ title, active, onPress }: SectionButtonProps) => {
   return (
-    <TouchableOpacity
-      style={[
-        styles.button,
-        active ? styles.activeButton : null,
-      ]}
+    <Button
+      variant={"outlined"}
+      borderColor={'#0078bf'}
       onPress={onPress}
     >
       <Text style={styles.buttonText}>{title}</Text>
-    </TouchableOpacity>
+    </Button>
   );
 };
 
@@ -19,14 +24,10 @@ const styles = StyleSheet.create({
   button: {
     padding: 10,
     borderRadius: 5,
-    backgroundColor: '#ccc',  // цвет фона по умолчанию
   },
-  activeButton: {
-    backgroundColor: '#f0f',  // цвет фона для активной кнопки
-  },
+
   buttonText: {
-    color: 'white',
-    textAlign: 'center',
+    textAlign: "center",
   },
 });
 

@@ -9,7 +9,7 @@ const Stack = createStackNavigator();
 function HomeScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Колледж цифровых и педагогических технологий</Text>
+      <Text style={styles.title} >Колледж цифровых и педагогических технологий</Text>
     </View>
   );
 }

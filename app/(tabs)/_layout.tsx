@@ -25,7 +25,6 @@ export default function TabLayout() {
     if (state) {
       const routeName = state.routes[state.index]?.name || "";
       setActiveRouteName(routeName);
-      console.log(routeName);
     }
   }, [state]);
 

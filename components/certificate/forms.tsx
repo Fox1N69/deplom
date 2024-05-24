@@ -3,6 +3,7 @@ import {
   AlertDialog,
   AlertDialogTrigger,
   Button,
+  Checkbox,
   Form,
   H4,
   Input,
@@ -25,7 +26,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import { AlertTriangle } from "@tamagui/lucide-icons";
+import { AlertTriangle, Check } from "@tamagui/lucide-icons";
 
 export const FormAboutTraning = () => {
   const [formData, setFormData] = useState({
@@ -65,7 +66,7 @@ export const FormAboutTraning = () => {
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 100 }}>
+      <ScrollView>
         <View style={{ paddingBottom: 130 }}>
           <Form
             onSubmit={() => handleSubmit}
@@ -139,6 +140,31 @@ export const FormAboutTraning = () => {
 };
 
 export const FormAboutPayments = () => {
+  const [formData, setFormData] = useState({
+    fio: "",
+    specialty: "",
+    group: "",
+    quantity: "",
+    message: "",
+  });
+
+  const handleChange = (name: string, value: string) => {
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e: GestureResponderEvent) => {
+    e.preventDefault();
+    try {
+      await axios.post("http://localhost:8000/api/payments", formData);
+      Alert.alert(
+        "Заявка отправлена",
+        "Оплата будет обработана в ближайшее время"
+      );
+    } catch (error) {
+      Alert.alert("Ошибка", "Произошла ошибка при отправке данных");
+    }
+  };
+
   return (
     <View>
       <Form
@@ -151,18 +177,25 @@ export const FormAboutPayments = () => {
         paddingHorizontal="$6"
       >
         <Label>ФИО Студента*</Label>
-        <Input />
+        <Input value={formData.fio} />
 
         <Label>Выбирите специальность</Label>
-        <Input />
+        <Input value={formData.specialty} />
         <Label>Выберите группу</Label>
-        <Input />
+        <Input value={formData.group} />
+        <Label>Укажите период выплат</Label>
+        <Input placeholder="01.01.2022-01.01.2023" />
+        <Label>Отправка* </Label>
+        <XStack>
+          <Checkbox />
+          <Text></Text>
+        </XStack>
 
         <YGroup>
           <Label>Количество</Label>
-          <Input size={"$2"} width={90} />
+          <Input size={"$2"} width={90} value={formData.quantity} />
           <Label>Примичание</Label>
-          <TextArea />
+          <TextArea value={formData.message} />
         </YGroup>
 
         <Text style={{ fontSize: 12 }}>
@@ -190,7 +223,7 @@ export const ArmyForm = () => {
         paddingHorizontal="$6"
       >
         <Label>ФИО Студента*</Label>
-        <Input  placeholder="ФИО" />
+        <Input placeholder="ФИО" />
 
         <Label>Выбирите специальность</Label>
         <Input />

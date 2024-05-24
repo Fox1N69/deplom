@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Image, Pressable, ScrollView, StyleSheet } from "react-native";
-import { Text, YStack, XStack, View } from "tamagui";
+import { Pressable, ScrollView, StyleSheet } from "react-native";
+import { Text, YStack, XStack, View, Image } from "tamagui";
 import { Link, router } from "expo-router";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -8,6 +8,7 @@ interface NewsItem {
   id: number;
   title: string;
   description: string;
+  image_url: string;
   link: string;
 }
 
@@ -15,18 +16,22 @@ interface NewsApiResponseItem {
   id: number;
   title: string;
   content: string;
+  image_url: string;
   link: string;
 }
-
 
 const Stack = createStackNavigator();
 
 export default function NewsStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="news" component={NewsScreen} options={{
-        headerTitle: 'Новости' 
-      }} />
+      <Stack.Screen
+        name="news"
+        component={NewsScreen}
+        options={{
+          headerTitle: "Новости",
+        }}
+      />
     </Stack.Navigator>
   );
 }
@@ -43,6 +48,7 @@ function NewsScreen() {
           id: item.id,
           title: item.title,
           description: item.content,
+          image_url: item.image_url,
           link: item.link,
         }));
         setNewsData(mappedData || []);
@@ -72,13 +78,22 @@ function NewsScreen() {
               borderWidth={1}
               borderRadius={10}
               width={300}
-              flexDirection="row"
+              flexDirection="column"
               padding={10}
               alignItems="flex-start"
             >
               <Image
-                source={{ uri: 'https://picsum.photos/200/300' }}
-                style={{ width: 25, height: 25, }}
+                source={{ uri: news.image_url }}
+                style={{
+                  width: "100%",
+                  height: undefined,
+                  aspectRatio: 1.5,
+                  borderTopLeftRadius: 10,
+                  borderTopRightRadius: 10,
+                  borderBottomRightRadius: 2,
+                  borderBottomLeftRadius: 2,
+                }}
+                resizeMode="stretch"
               />
               <YStack flex={1}>
                 <XStack flexDirection="row" alignItems="center">

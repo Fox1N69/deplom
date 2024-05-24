@@ -1,5 +1,4 @@
 "use client";
-import { Link } from "expo-router";
 import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, TouchableOpacity, Button } from "react-native";
 import {
@@ -22,70 +21,112 @@ import {
 } from "@components/certificate/forms";
 import SectionButton from "@components/certificate/SectionButton";
 import { CertificateMenu } from "@components/certificate/dropDownMenu";
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+  createStackNavigator,
+  StackNavigationProp,
+} from "@react-navigation/stack";
+import { useNavigation, RouteProp } from "@react-navigation/native";
 
-const Stack = createStackNavigator()
+const Stack = createStackNavigator();
 
 export default function CertificateStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="certificate" component={CertificateScreen} options={{
-        headerTitle: 'Заказать справку' 
-      }} />
+      <Stack.Screen
+        name="certificate"
+        component={CertificateScreen}
+        options={{
+          headerTitle: "Заказать справку",
+        }}
+      />
+      <Stack.Screen
+        name="FormAboutTraning"
+        component={FormAboutTraning}
+        options={{
+          headerTitle: "Справка об обучении",
+        }}
+      />
+      <Stack.Screen
+        name="ArmyForm"
+        component={ArmyForm}
+        options={{ headerTitle: "Справка для военкомата" }}
+      />
+      <Stack.Screen
+        name="FormAboutPayments"
+        component={FormAboutPayments}
+        options={{
+          headerTitle: "Справка о выплатах",
+        }}
+      />
     </Stack.Navigator>
   );
 }
 
-
 function CertificateScreen() {
   const [selectedSection, setSelectedSection] = useState<number | null>(null);
+  const navigation = useNavigation();
 
-  const renderSelectedForm = () => {
-    switch (selectedSection) {
+  const handleSection = (section: number) => {
+    setSelectedSection(section);
+
+    switch (section) {
       case 1:
-        return <FormAboutTraning />;
+        navigation.navigate("FormAboutTraning");
+        break;
       case 2:
-        return <ArmyForm />;
+        navigation.navigate("ArmyForm");
+        break;
       case 3:
-        return <FormAboutPayments />;
+        navigation.navigate("FormAboutPayments");
+        break;
       default:
-        return null;
+        break;
     }
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.menu}>
-        <CertificateMenu onSelect={setSelectedSection} />
+      <View>
+        <View style={styles.informView}>
+          <Text fontSize={20} fontWeight={"bold"}>
+            Увaжаемые студенты
+          </Text>
+          <Text fontSize={16}>
+            1. Если Вам необходима справка о том, что Вы обучаетесь в Колледже
+            цифровых и педагогических технологий — выберите раздел «Справка об
+            обучении»;
+          </Text>
+          <Text fontSize={16}>
+            2. Если Вам необходима справка о выплатах — выберите раздел «Справка
+            о стипендии и соц.выплатах»;
+          </Text>
+          <Text fontSize={16}>
+            3. Если Вам необходима справка для предоставления в военкомат —
+            выберите раздел «Справка в военкомат»;
+          </Text>
+        </View>
       </View>
 
-      <View>
-        {selectedSection === null && (
-          <View style={styles.informView}>
-            <Text fontSize={20} fontWeight={"bold"}>
-              Увожаемые студенты
-            </Text>
-            <Text fontSize={16}>
-              1. Если Вам необходима справка о том, что Вы обучаетесь в Колледже
-              цифровых и педагогических технологий — выберите раздел «Справка об
-              обучении»;
-            </Text>
-            <Text fontSize={16}>
-              2. Если Вам необходима справка о выплатах — выберите раздел
-              «Справка о стипендии и соц.выплатах»;
-            </Text>
-            <Text fontSize={16}>
-              3. Если Вам необходима справка для предоставления в военкомат —
-              выберите раздел «Справка в военкомат»;
-            </Text>
-          </View>
-        )}
-        {selectedSection !== null && renderSelectedForm()}
+      <View style={styles.menu}>
+        <SectionButton
+          title="Справка об обучении"
+          active={selectedSection === 1}
+          onPress={() => handleSection(1)}
+        />
+        <SectionButton
+          title="Справка для военкомата"
+          active={selectedSection === 2}
+          onPress={() => handleSection(2)}
+        />
+        <SectionButton
+          title="Справка о выплатах"
+          active={selectedSection === 3}
+          onPress={() => handleSection(3)}
+        />
       </View>
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -94,10 +135,10 @@ const styles = StyleSheet.create({
   },
   menu: {
     paddingHorizontal: 10,
-    paddingBottom: 20,
+    marginTop: 20,
     display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: "column",
+    gap: 20,
     width: "100%",
   },
   dynamicButtons: {
