@@ -65,8 +65,8 @@ export const FormAboutTraning = () => {
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <ScrollView contentContainerStyle={{flexGrow: 1, paddingBottom: 100 }}>
-        <View style={{paddingBottom: 40}}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 100 }}>
+        <View style={{ paddingBottom: 130 }}>
           <Form
             onSubmit={() => handleSubmit}
             minWidth={400}
@@ -120,7 +120,7 @@ export const FormAboutTraning = () => {
                 onChangeText={(value) => handleChange("message", value)}
               />
             </YGroup>
-            <Text style={{fontSize: 12}}>
+            <Text style={{ fontSize: 12 }}>
               Нажимая на кнопку ОТПРАВИТЬ, Вы соглашаетесь c Политикой
               конфиденциальности
             </Text>
@@ -150,9 +150,8 @@ export const FormAboutPayments = () => {
         borderColor="$borderColor"
         paddingHorizontal="$6"
       >
-        <Input placeholder="Имя" />
-        <Input placeholder="Фамилия" />
-        <Input placeholder="Отчество" />
+        <Label>ФИО Студента*</Label>
+        <Input />
 
         <Label>Выбирите специальность</Label>
         <Input />
@@ -165,6 +164,11 @@ export const FormAboutPayments = () => {
           <Label>Примичание</Label>
           <TextArea />
         </YGroup>
+
+        <Text style={{ fontSize: 12 }}>
+          Нажимая на кнопку ОТПРАВИТЬ, Вы соглашаетесь c Политикой
+          конфиденциальности
+        </Text>
         <Button variant="outlined" theme={"red_active"}>
           Отправить
         </Button>
@@ -185,9 +189,8 @@ export const ArmyForm = () => {
         borderColor="$borderColor"
         paddingHorizontal="$6"
       >
-        <Input height={35} placeholder="Имя" />
-        <Input height={35} placeholder="Фамилия" />
-        <Input height={35} placeholder="Отчество" />
+        <Label>ФИО Студента*</Label>
+        <Input  placeholder="ФИО" />
 
         <Label>Выбирите специальность</Label>
         <Input />
@@ -196,10 +199,14 @@ export const ArmyForm = () => {
 
         <YGroup>
           <Label>Наиминование военкомата</Label>
-          <Input width={90} placeholder="ФКУ отдел военного комисариата" />
+          <Input placeholder="ФКУ Отдел военного комисариата" />
           <Label>Ваше сообщение</Label>
           <TextArea />
         </YGroup>
+        <Text style={{ fontSize: 12 }}>
+          Нажимая на кнопку ОТПРАВИТЬ, Вы соглашаетесь c Политикой
+          конфиденциальности
+        </Text>
         <Button variant="outlined" theme={"red_active"}>
           Отправить
         </Button>
