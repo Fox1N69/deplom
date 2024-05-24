@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Pressable, ScrollView, StyleSheet } from "react-native";
-import { Text, YStack, XStack, View, Image } from "tamagui";
+import { Text, YStack, XStack, View, Image, Button } from "tamagui";
 import { Link, router } from "expo-router";
 import { createStackNavigator } from "@react-navigation/stack";
+import { NewsCard } from "@components/News/NewsCard";
 
 interface NewsItem {
   id: number;
@@ -47,7 +48,7 @@ function NewsScreen() {
         const mappedData = data.map((item: NewsApiResponseItem) => ({
           id: item.id,
           title: item.title,
-          description: item.content,
+          description: item.content.split("\n\n")[1],
           image_url: item.image_url,
           link: item.link,
         }));
@@ -65,7 +66,7 @@ function NewsScreen() {
     <ScrollView style={styles.container}>
       <YStack space="$4" alignItems="center">
         {newsData.map((news, index) => (
-          <Pressable
+          <NewsCard
             key={news.id}
             onPress={() =>
               router.push({
@@ -73,36 +74,13 @@ function NewsScreen() {
                 params: { id: news.id },
               })
             }
-          >
-            <XStack
-              borderWidth={1}
-              borderRadius={10}
-              width={300}
-              flexDirection="column"
-              padding={10}
-              alignItems="flex-start"
-            >
-              <Image
-                source={{ uri: news.image_url }}
-                style={{
-                  width: "100%",
-                  height: undefined,
-                  aspectRatio: 1.5,
-                  borderTopLeftRadius: 10,
-                  borderTopRightRadius: 10,
-                  borderBottomRightRadius: 2,
-                  borderBottomLeftRadius: 2,
-                }}
-                resizeMode="stretch"
-              />
-              <YStack flex={1}>
-                <XStack flexDirection="row" alignItems="center">
-                  <Text style={styles.title}>{news.title}</Text>
-                </XStack>
-                <Text>{news.description}</Text>
-              </YStack>
-            </XStack>
-          </Pressable>
+            image_url={news.image_url}
+            title={news.title}
+            paragraph={news.description}
+            animation="bouncy"
+            scale={0.9}
+            pressStyle={{ scale: 0.975 }}
+          />
         ))}
       </YStack>
     </ScrollView>
@@ -113,10 +91,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: "bold",
-    flexShrink: 1,
   },
 });

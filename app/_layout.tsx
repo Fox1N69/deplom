@@ -86,7 +86,7 @@ function RootLayoutNav() {
 
   return (
     <NavigationContainer>
-      <TamaguiProvider config={config} defaultTheme={colorScheme as any}>
+      <TamaguiProvider config={config} defaultTheme={colorScheme as any} >
         <ThemeProvider
           value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
         >
