@@ -144,7 +144,12 @@ export const FormAboutPayments = () => {
     fio: "",
     specialty: "",
     group: "",
+    payment_period: "",
     quantity: "",
+    sendByEmail: false,
+    pickupInOffice: false,
+    email: "",
+    phone_number: "",
     message: "",
   });
 
@@ -152,10 +157,18 @@ export const FormAboutPayments = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleSendByEmailChange = (value: boolean) => {
+    setFormData({ ...formData, sendByEmail: value });
+  };
+
+  const handlePickupInOfficeChange = (value: boolean) => {
+    setFormData({ ...formData, pickupInOffice: value });
+  };
+
   const handleSubmit = async (e: GestureResponderEvent) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8000/api/payments", formData);
+      await axios.post("http://localhost:8000/api/emailPayment", formData);
       Alert.alert(
         "Заявка отправлена",
         "Оплата будет обработана в ближайшее время"
@@ -166,51 +179,90 @@ export const FormAboutPayments = () => {
   };
 
   return (
-    <View>
-      <Form
-        onSubmit={() => console.log("he")}
-        minWidth={400}
-        gap="$2"
-        borderColor="$borderColor"
-        paddingHorizontal="$4"
-      >
-        <Label>ФИО Студента*</Label>
-        <Input value={formData.fio} />
+    <ScrollView>
+      <View>
+        <Form
+          onSubmit={() => console.log("he")}
+          minWidth={400}
+          gap="$2"
+          borderColor="$borderColor"
+          paddingHorizontal="$4"
+        >
+          <Label>ФИО Студента*</Label>
+          <Input
+            value={formData.fio}
+            onChangeText={(value) => handleChange("fio", value)}
+          />
 
-        <Label>Выбирите специальность</Label>
-        <Input value={formData.specialty} />
-        <Label>Выберите группу</Label>
-        <Input value={formData.group} />
-        <Label>Укажите период выплат</Label>
-        <Input placeholder="01.01.2022 - 01.01.2023" />
-        <Label>Отправка* </Label>
-        <XStack gap={5} alignItems="center">
-          <Checkbox />
-          <Text fontSize={"$3"}>
-            Отправить справку на почтку (указать e-mail ниже)
+          <Label>Выбирите специальность</Label>
+          <Input
+            value={formData.specialty}
+            onChangeText={(value) => handleChange("specialty", value)}
+          />
+          <Label>Выберите группу</Label>
+          <Input
+            value={formData.group}
+            onChangeText={(value) => handleChange("group", value)}
+          />
+          <Label>Укажите период выплат</Label>
+          <Input
+            placeholder="01.01.2022 - 01.01.2023"
+            value={formData.payment_period}
+            onChangeText={(value) => handleChange("payment_period", value)}
+          />
+          <Label>Отправка* </Label>
+          <XStack gap={5} alignItems="center">
+            <Checkbox
+              checked={formData.sendByEmail}
+              onCheckedChange={handleSendByEmailChange}
+            />
+            <Text fontSize={"$3"}>
+              Отправить справку на почтку (указать e-mail ниже)
+            </Text>
+          </XStack>
+          <XStack gap={5} alignItems="center">
+            <Checkbox
+              checked={formData.pickupInOffice}
+              onCheckedChange={handlePickupInOfficeChange}
+            />
+            <Text fontSize={"$3"}>Заберу оригинал в бухгалтерии колледжа</Text>
+          </XStack>
+
+          <YGroup>
+            <Label>Количество</Label>
+            <Input
+              size={"$2"}
+              width={90}
+              value={formData.quantity}
+              onChangeText={(value) => handleChange("quantity", value)}
+            />
+            <Input
+              placeholder="E-MAIL"
+              value={formData.email}
+              onChangeText={(value) => handleChange("email", value)}
+            />
+            <Input
+              placeholder="8900000000"
+              value={formData.phone_number}
+              onChangeText={(value) => handleChange("phone_number", value)}
+            />
+            <Label>Примичание</Label>
+            <TextArea
+              value={formData.message}
+              onChangeText={(value) => handleChange("message", value)}
+            />
+          </YGroup>
+
+          <Text style={{ fontSize: 12 }}>
+            Нажимая на кнопку ОТПРАВИТЬ, Вы соглашаетесь c Политикой
+            конфиденциальности
           </Text>
-        </XStack>
-        <XStack gap={5} alignItems="center">
-          <Checkbox />
-          <Text fontSize={"$3"}>Заберу оригинал в бухгалтерии колледжа</Text>
-        </XStack>
-
-        <YGroup>
-          <Label>Количество</Label>
-          <Input size={"$2"} width={90} value={formData.quantity} />
-          <Label>Примичание</Label>
-          <TextArea value={formData.message} />
-        </YGroup>
-
-        <Text style={{ fontSize: 12 }}>
-          Нажимая на кнопку ОТПРАВИТЬ, Вы соглашаетесь c Политикой
-          конфиденциальности
-        </Text>
-        <Button variant="outlined" theme={"red_active"}>
-          Отправить
-        </Button>
-      </Form>
-    </View>
+          <Button variant="outlined" theme={"red_active"} onPress={(e) => handleSubmit(e)}>
+            Отправить
+          </Button>
+        </Form>
+      </View>
+    </ScrollView>
   );
 };
 
