@@ -1,8 +1,5 @@
-import { Link, useNavigation } from "expo-router";
-import { Pressable } from "react-native";
 import { Text } from "tamagui";
 import {
-  Plus,
   Home,
   Newspaper,
   ClipboardList,
@@ -13,9 +10,8 @@ import HomeScreen from ".";
 import NewsScreen from "./news";
 import CertificateScreen from "./certificate";
 import ScheduleScreen from "./schedule";
-import { BottomTabBarButtonProps } from "@react-navigation/bottom-tabs";
-import { createContext, useCallback, useEffect, useRef, useState } from "react";
-import { useNavigationState, useRoute } from "@react-navigation/native";
+import { createContext, useEffect, useState } from "react";
+import { useNavigationState } from "@react-navigation/native";
 
 const Tabs = AnimatedTabBarNavigator();
 
@@ -31,8 +27,7 @@ export default function TabLayout() {
       setActiveRouteName(routeName);
       console.log(routeName);
     }
-  }, [state]); 
- 
+  }, [state]);
 
   return (
     <ActiveRouteContext.Provider value={activeRouteName}>
@@ -46,7 +41,7 @@ export default function TabLayout() {
         }}
       >
         <Tabs.Screen
-          name="Home"
+          name="Главная"
           component={HomeScreen}
           options={{
             tabBarIcon: ({
@@ -69,7 +64,7 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
-          name="News"
+          name="Новости"
           component={NewsScreen}
           options={{
             tabBarIcon: ({
@@ -89,7 +84,7 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
-          name="Certificate"
+          name="Справки"
           component={CertificateScreen}
           options={{
             tabBarIcon: ({
@@ -109,7 +104,7 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
-          name="Schedule"
+          name="Расписание"
           component={ScheduleScreen}
           options={{
             tabBarIcon: ({
