@@ -22,6 +22,7 @@ import { useFonts } from "expo-font";
 import { useContext, useEffect, useRef, useState } from "react";
 import WelcomScreen from "@components/Welcom/WelcomAnimation";
 import { ActiveRouteContext } from "./(tabs)/_layout";
+import { ToggleTheme } from "@components/ToggleTheme";
 
 export { ErrorBoundary } from "expo-router";
 
