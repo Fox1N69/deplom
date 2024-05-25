@@ -26,8 +26,17 @@ import {
   StackNavigationProp,
 } from "@react-navigation/stack";
 import { useNavigation, RouteProp } from "@react-navigation/native";
+import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
+import { router } from "expo-router";
 
-const Stack = createStackNavigator();
+type CertificateStackParamList = {
+  certificate: undefined;
+  FormAboutTraning: undefined;
+  ArmyForm: undefined;
+  FormAboutPayments: undefined;
+};
+
+const Stack = createStackNavigator<CertificateStackParamList>();
 
 export default function CertificateStack() {
   return (
@@ -64,7 +73,8 @@ export default function CertificateStack() {
 
 function CertificateScreen() {
   const [selectedSection, setSelectedSection] = useState<number | null>(null);
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<StackNavigationProp<CertificateStackParamList>>();
 
   const handleSection = (section: number) => {
     setSelectedSection(section);
@@ -114,14 +124,14 @@ function CertificateScreen() {
           onPress={() => handleSection(1)}
         />
         <SectionButton
-          title="Справка для военкомата"
-          active={selectedSection === 2}
-          onPress={() => handleSection(2)}
-        />
-        <SectionButton
           title="Справка о выплатах"
           active={selectedSection === 3}
           onPress={() => handleSection(3)}
+        />
+        <SectionButton
+          title="Справка для военкомата"
+          active={selectedSection === 2}
+          onPress={() => handleSection(2)}
         />
       </View>
     </View>

@@ -14,15 +14,14 @@ export default function NewsDetail() {
   const [news, setNews] = useState<News | null>(null);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/news/${id}/full`)
+    fetch(`https://mobile-rest.onrender.com/api/news/${id}/full`)
       .then((response) => response.json())
       .then((data) => setNews(data))
       .catch((error) => console.error("Ошибка при загрузке новости:", error));
   }, [id]);
 
-
   return (
-    <ScrollView contentContainerStyle={{flexGrow: news ? 1 : 0}}>
+    <ScrollView contentContainerStyle={{ flexGrow: news ? 1 : 0 }}>
       {news ? (
         <View style={styles.container}>
           <Image

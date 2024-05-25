@@ -44,7 +44,7 @@ function NewsScreen() {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/news");
+        const response = await fetch("https://mobile-rest.onrender.com/api/news");
         const data = (await response.json()) as NewsApiResponseItem[];
         const mappedData = data.map((item: NewsApiResponseItem) => ({
           id: item.id,

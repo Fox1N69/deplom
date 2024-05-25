@@ -47,7 +47,10 @@ export const FormAboutTraning = () => {
     e.preventDefault();
     console.log("Sending data:", formData); // Log the data being sent
     try {
-      await axios.post("http://localhost:8000/api/emailTraning", formData);
+      await axios.post(
+        "https://mobile-rest.onrender.com/api/emailTraning",
+        formData
+      );
       console.log("Data sent successfully");
       Alert.alert(
         "Заявка отправлена",
@@ -145,7 +148,7 @@ export const FormAboutPayments = () => {
     specialty: "",
     group: "",
     payment_period: "",
-    quantity: "",
+    quantity: "1",
     sendByEmail: false,
     pickupInOffice: false,
     email: "",
@@ -154,6 +157,8 @@ export const FormAboutPayments = () => {
   });
 
   const handleChange = (name: string, value: string) => {
+    setFormData({ ...formData, [name]: value });
+
     setFormData({ ...formData, [name]: value });
   };
 
@@ -167,102 +172,123 @@ export const FormAboutPayments = () => {
 
   const handleSubmit = async (e: GestureResponderEvent) => {
     e.preventDefault();
+
     try {
-      await axios.post("http://localhost:8000/api/emailPayment", formData);
-      Alert.alert(
-        "Заявка отправлена",
-        "Оплата будет обработана в ближайшее время"
+      await axios.post(
+        "https://mobile-rest.onrender.com/api/emailPayment",
+        formData
       );
+      Alert.alert("Заявка отправлена", "Ожидайте получения");
     } catch (error) {
-      Alert.alert("Ошибка", "Произошла ошибка при отправке данных");
+      Alert.alert(
+        "Ошибка",
+        "Справка не было отправленна, так как произошел сбой на сервере \n попробуйте позже или отправти заявку через сайт: https://kcpt72.ru/"
+      );
     }
   };
 
   return (
-    <ScrollView>
-      <View>
-        <Form
-          onSubmit={() => console.log("he")}
-          minWidth={400}
-          gap="$2"
-          borderColor="$borderColor"
-          paddingHorizontal="$4"
-        >
-          <Label>ФИО Студента*</Label>
-          <Input
-            value={formData.fio}
-            onChangeText={(value) => handleChange("fio", value)}
-          />
-
-          <Label>Выбирите специальность</Label>
-          <Input
-            value={formData.specialty}
-            onChangeText={(value) => handleChange("specialty", value)}
-          />
-          <Label>Выберите группу</Label>
-          <Input
-            value={formData.group}
-            onChangeText={(value) => handleChange("group", value)}
-          />
-          <Label>Укажите период выплат</Label>
-          <Input
-            placeholder="01.01.2022 - 01.01.2023"
-            value={formData.payment_period}
-            onChangeText={(value) => handleChange("payment_period", value)}
-          />
-          <Label>Отправка* </Label>
-          <XStack gap={5} alignItems="center">
-            <Checkbox
-              checked={formData.sendByEmail}
-              onCheckedChange={handleSendByEmailChange}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        style={{ marginBottom: 100 }}
+      >
+        <View>
+          <Form
+            onSubmit={() => console.log("he")}
+            minWidth={400}
+            gap="$2"
+            borderColor="$borderColor"
+            paddingHorizontal="$4"
+          >
+            <Label>ФИО Студента*</Label>
+            <Input
+              value={formData.fio}
+              onChangeText={(value) => handleChange("fio", value)}
             />
-            <Text fontSize={"$3"}>
-              Отправить справку на почтку (указать e-mail ниже)
+
+            <Label>Выбирите специальность*</Label>
+            <Input
+              value={formData.specialty}
+              onChangeText={(value) => handleChange("specialty", value)}
+            />
+            <Label>Выберите группу*</Label>
+            <Input
+              value={formData.group}
+              onChangeText={(value) => handleChange("group", value)}
+            />
+            <Label>Укажите период выплат*</Label>
+            <Input
+              placeholder="01.01.2022 - 01.01.2023"
+              value={formData.payment_period}
+              onChangeText={(value) => handleChange("payment_period", value)}
+            />
+            <Label>Отправка* </Label>
+            <XStack gap={5} alignItems="center">
+              <Checkbox
+                checked={formData.sendByEmail}
+                onCheckedChange={handleSendByEmailChange}
+              />
+              <Text fontSize={"$3"}>
+                Отправить справку на почтку (указать e-mail ниже)
+              </Text>
+            </XStack>
+            <XStack gap={5} alignItems="center">
+              <Checkbox
+                checked={formData.pickupInOffice}
+                onCheckedChange={handlePickupInOfficeChange}
+              />
+              <Text fontSize={"$3"}>
+                Заберу оригинал в бухгалтерии колледжа
+              </Text>
+            </XStack>
+
+            <YGroup gap={10}>
+              <Label>Количество</Label>
+              <Input
+                size={"$2"}
+                width={90}
+                value={formData.quantity}
+                onChangeText={(value) => handleChange("quantity", value)}
+              />
+              {formData.sendByEmail && (
+                <Input
+                  placeholder="example@mail.com"
+                  value={formData.email}
+                  onChangeText={(value) => handleChange("email", value)}
+                />
+              )}
+
+              <Label>Введите номер телефона</Label>
+              <Input
+                placeholder="8900000000"
+                value={formData.phone_number}
+                onChangeText={(value) => handleChange("phone_number", value)}
+              />
+              <Label>Примичание</Label>
+              <TextArea
+                value={formData.message}
+                onChangeText={(value) => handleChange("message", value)}
+              />
+            </YGroup>
+
+            <Text style={{ fontSize: 12 }}>
+              Нажимая на кнопку ОТПРАВИТЬ, Вы соглашаетесь c Политикой
+              конфиденциальности
             </Text>
-          </XStack>
-          <XStack gap={5} alignItems="center">
-            <Checkbox
-              checked={formData.pickupInOffice}
-              onCheckedChange={handlePickupInOfficeChange}
-            />
-            <Text fontSize={"$3"}>Заберу оригинал в бухгалтерии колледжа</Text>
-          </XStack>
-
-          <YGroup>
-            <Label>Количество</Label>
-            <Input
-              size={"$2"}
-              width={90}
-              value={formData.quantity}
-              onChangeText={(value) => handleChange("quantity", value)}
-            />
-            <Input
-              placeholder="E-MAIL"
-              value={formData.email}
-              onChangeText={(value) => handleChange("email", value)}
-            />
-            <Input
-              placeholder="8900000000"
-              value={formData.phone_number}
-              onChangeText={(value) => handleChange("phone_number", value)}
-            />
-            <Label>Примичание</Label>
-            <TextArea
-              value={formData.message}
-              onChangeText={(value) => handleChange("message", value)}
-            />
-          </YGroup>
-
-          <Text style={{ fontSize: 12 }}>
-            Нажимая на кнопку ОТПРАВИТЬ, Вы соглашаетесь c Политикой
-            конфиденциальности
-          </Text>
-          <Button variant="outlined" theme={"red_active"} onPress={(e) => handleSubmit(e)}>
-            Отправить
-          </Button>
-        </Form>
-      </View>
-    </ScrollView>
+            <Button
+              variant="outlined"
+              theme={"red_active"}
+              onPress={(e) => handleSubmit(e)}
+            >
+              Отправить
+            </Button>
+          </Form>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -282,7 +308,10 @@ export const ArmyForm = () => {
   const handleSubmit = async (e: GestureResponderEvent) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8000/api/emailArmy", formData);
+      await axios.post(
+        "https://mobile-rest.onrender.com/api/emailArmy",
+        formData
+      );
       Alert.alert(
         "Заявка отправлена",
         "Ваша информация была успешно отправлена и будет обработана в ближайшее время."
