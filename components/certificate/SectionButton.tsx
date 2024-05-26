@@ -1,5 +1,10 @@
 import React from "react";
-import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import {
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  useColorScheme,
+} from "react-native";
 import { Button } from "tamagui";
 
 interface SectionButtonProps {
@@ -9,26 +14,29 @@ interface SectionButtonProps {
 }
 
 const SectionButton = ({ title, active, onPress }: SectionButtonProps) => {
+  const theme = useColorScheme();
+
+  const styles = StyleSheet.create({
+    button: {
+      padding: 10,
+      borderRadius: 5,
+    },
+
+    buttonText: {
+      textAlign: "center",
+      color: theme === "dark" ? "#fff" : "#000",
+    },
+  });
+
   return (
     <Button
       variant={"outlined"}
-      borderColor={'#0078bf'}
+      borderColor={theme === "dark" ? "#20599C" : "#0078bf"}
       onPress={onPress}
     >
       <Text style={styles.buttonText}>{title}</Text>
     </Button>
   );
 };
-
-const styles = StyleSheet.create({
-  button: {
-    padding: 10,
-    borderRadius: 5,
-  },
-
-  buttonText: {
-    textAlign: "center",
-  },
-});
 
 export default SectionButton;

@@ -1,6 +1,5 @@
-import Colors from "constants/Colors";
 import { Children } from "react";
-import { Pressable, useColorScheme } from "react-native";
+import { Pressable } from "react-native";
 import type { CardProps } from "tamagui";
 import {
   Button,
@@ -18,38 +17,38 @@ import {
 interface NewsCardProps extends CardProps {
   image_url?: string;
   title: string;
-  paragraph: string;
   footerContent?: React.ReactNode;
   backgroundContent?: React.ReactNode;
 }
 
-export function NewsCard({
+export function HomeCard({
   image_url,
   title,
-  paragraph,
   footerContent,
   backgroundContent,
   ...cardProps
 }: NewsCardProps) {
-
   return (
-    <Card elevate size="$4" bordered {...cardProps}>
+    <Card elevate style={{ width: 199, height: 240 }} bordered {...cardProps}>
       <Card.Header padded>
+        <H5
+          style={{ lineHeight: "20em", position: "absolute", left: 10, top: 8, color: "#fff",}}
+        >
+          {title}
+        </H5>
+      </Card.Header>
+      <Card.Footer padded>{footerContent}</Card.Footer>
+      <Card.Background>
         <Image
           source={{ uri: image_url }}
           style={{
             width: "100%",
-            height: undefined,
-            aspectRatio: 1.5,
+            height: "100%",
             borderRadius: 10,
           }}
-          resizeMode="stretch"
+          resizeMode="cover"
         />
-        <H3 style={{ marginTop: 20 }}>{title}</H3>
-        <Paragraph theme="alt2">{paragraph}</Paragraph>
-      </Card.Header>
-      <Card.Footer padded>{footerContent}</Card.Footer>
-      <Card.Background>{backgroundContent}</Card.Background>
+      </Card.Background>
     </Card>
   );
 }

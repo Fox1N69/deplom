@@ -13,7 +13,7 @@ import {
   usePathname,
 } from "expo-router";
 import { Pressable, useColorScheme } from "react-native";
-import { TamaguiProvider, Text } from "tamagui";
+import { TamaguiProvider, Text, XStack } from "tamagui";
 
 import "../tamagui-web.css";
 
@@ -23,6 +23,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import WelcomScreen from "@components/Welcom/WelcomAnimation";
 import { ActiveRouteContext } from "./(tabs)/_layout";
 import { ToggleTheme } from "@components/ToggleTheme";
+import { ArrowBigLeft, ArrowLeftFromLine } from "@tamagui/lucide-icons";
 
 export { ErrorBoundary } from "expo-router";
 
@@ -31,7 +32,6 @@ export const unstable_settings = {
 };
 
 SplashScreen.preventAutoHideAsync();
-
 
 export default function RootLayout() {
   const [interLoaded, interError] = useFonts({
@@ -49,11 +49,8 @@ export default function RootLayout() {
     return null;
   }
 
-
   return <RootLayoutNav />;
-  
 }
-
 
 function RootLayoutNav() {
   const [appReady, setAppReady] = useState(false);
@@ -82,28 +79,31 @@ function RootLayoutNav() {
       />
     );
   }
-  
 
   return (
     <NavigationContainer>
-      <TamaguiProvider config={config} defaultTheme={colorScheme as any} >
+      <TamaguiProvider config={config} defaultTheme={colorScheme as any}>
         <ThemeProvider
           value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
         >
           <Stack>
-            <Stack.Screen
-              name="(tabs)"
-              options={{ headerShown: false}}
-            />
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen name="modal" options={{ presentation: "modal" }} />
             <Stack.Screen
               name="news/[id]"
               options={{
                 title: "Подробнее",
+                headerTintColor: colorScheme === "dark" ? "#fff" : "#000",
+                headerStyle: {
+                  backgroundColor: colorScheme === "dark" ? "#121212" : "#fff",
+                },
                 headerLeft: () => (
                   <Link href="/news" asChild>
                     <Pressable>
-                      <Text>Назад</Text>
+                      <XStack style={{alignItems: 'center'}}>
+                        <ArrowLeftFromLine />
+                        <Text> Назад</Text>
+                      </XStack>
                     </Pressable>
                   </Link>
                 ),

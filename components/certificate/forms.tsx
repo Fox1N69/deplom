@@ -74,8 +74,7 @@ export const FormAboutTraning = () => {
           <Form
             onSubmit={() => handleSubmit}
             minWidth={400}
-            gap="$2"
-            borderWidth={1}
+            gap="$2.5"
             borderRadius="$4"
             borderColor="$borderColor"
             paddingHorizontal="$6"
@@ -199,7 +198,7 @@ export const FormAboutPayments = () => {
           <Form
             onSubmit={() => console.log("he")}
             minWidth={400}
-            gap="$2"
+            gap="$2.5"
             borderColor="$borderColor"
             paddingHorizontal="$4"
           >
@@ -330,8 +329,7 @@ export const ArmyForm = () => {
       <Form
         onSubmit={() => handleSubmit}
         minWidth={400}
-        gap="$2"
-        borderWidth={1}
+        gap="$2.5"
         borderRadius="$4"
         borderColor="$borderColor"
         paddingHorizontal="$6"

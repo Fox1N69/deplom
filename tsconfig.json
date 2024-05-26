@@ -14,7 +14,8 @@
     "baseUrl": ".",
     "paths": {
       "@components/*": ["components/*"],
-      "@assets/*": ["assets/*"]
+      "@assets/*": ["assets/*"],
+      "@web/*": ["web/*"]
     }
   },
   "include": [
@@ -22,8 +23,9 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
-    "components/certificate/forms/FormAboutTraning.tsx"
-, "components/TabIcons.tsx"  ],
+    "components/certificate/forms/FormAboutTraning.tsx",
+    "components/TabIcons.tsx"
+  ],
   "exclude": [
     "node_modules",
     "babel.config.js",

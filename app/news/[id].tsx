@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
 import { Text, View, ScrollView, Image, Button } from "tamagui";
-import { StyleSheet } from "react-native";
+import { StyleSheet, useColorScheme } from "react-native";
 
 interface News {
   title: string;
@@ -12,6 +12,8 @@ interface News {
 export default function NewsDetail() {
   const { id } = useLocalSearchParams();
   const [news, setNews] = useState<News | null>(null);
+  const theme = useColorScheme();
+  const textColor = theme === "dark" ? "#fff" : "#000";
 
   useEffect(() => {
     fetch(`https://mobile-rest.onrender.com/api/news/${id}/full`)
@@ -19,6 +21,14 @@ export default function NewsDetail() {
       .then((data) => setNews(data))
       .catch((error) => console.error("Ошибка при загрузке новости:", error));
   }, [id]);
+
+  const styles = StyleSheet.create({
+    container: {
+      paddingTop: 30,
+      padding: 20,
+      backgroundColor: theme === "dark" ? "#000" : "#fff"
+    },
+  });
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: news ? 1 : 0 }}>
@@ -39,6 +49,7 @@ export default function NewsDetail() {
             fontWeight={"bold"}
             textAlign="left"
             marginTop="$8"
+            color={textColor}
           >
             {news.title}
           </Text>
@@ -50,10 +61,3 @@ export default function NewsDetail() {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: 30,
-    padding: 20,
-  },
-});
