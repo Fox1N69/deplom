@@ -49,12 +49,17 @@ function HomeScreen() {
         >
           Колледж цифровых и педагогических технологий
         </Text>
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+        <ScrollView
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          decelerationRate={0}
+        >
           <XStack
             style={{
               alignItems: "center",
             }}
             gap="$5"
+            marginTop="$8"
           >
             <HomeCard
               onPress={() => {
@@ -70,6 +75,10 @@ function HomeScreen() {
               }}
               title="Абитуриенту поступить в колледж"
               image_url="https://kcpt72.ru/wp-content/themes/basic/assets/img/Categories/special.png"
+            />
+            <HomeCard
+              title="Профиссиональное воспитание"
+              image_url="https://kcpt72.ru/wp-content/themes/basic/assets/img/Categories/volonter.png"
             />
           </XStack>
         </ScrollView>
