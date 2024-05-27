@@ -14,7 +14,7 @@ import {
   XStack,
 } from "tamagui";
 
-interface NewsCardProps extends CardProps {
+interface HomeCardProps extends CardProps {
   image_url?: string;
   title: string;
   footerContent?: React.ReactNode;
@@ -27,12 +27,18 @@ export function HomeCard({
   footerContent,
   backgroundContent,
   ...cardProps
-}: NewsCardProps) {
+}: HomeCardProps) {
   return (
     <Card elevate style={{ width: 199, height: 240 }} bordered {...cardProps}>
       <Card.Header padded>
         <H5
-          style={{ lineHeight: "20em", position: "absolute", left: 10, top: 8, color: "#fff",}}
+          style={{
+            lineHeight: "20em",
+            position: "absolute",
+            left: 10,
+            top: 8,
+            color: "#fff",
+          }}
         >
           {title}
         </H5>
