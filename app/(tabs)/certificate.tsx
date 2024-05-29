@@ -1,33 +1,18 @@
 "use client";
-import { useEffect, useState } from "react";
-import { Pressable, StyleSheet, TouchableOpacity, Button } from "react-native";
-import {
-  Button as TamaguiButton,
-  Form,
-  H4,
-  Text,
-  View,
-  Spinner,
-  stylePropsAll,
-  XStack,
-  XGroup,
-  Select,
-  DialogTitle,
-} from "tamagui";
+import { useState } from "react";
+import { StyleSheet } from "react-native";
+import { Button as TamaguiButton, Text, View } from "tamagui";
 import {
   ArmyForm,
   FormAboutTraning,
   FormAboutPayments,
 } from "@components/certificate/forms";
 import SectionButton from "@components/certificate/SectionButton";
-import { CertificateMenu } from "@components/certificate/dropDownMenu";
 import {
   createStackNavigator,
   StackNavigationProp,
 } from "@react-navigation/stack";
-import { useNavigation, RouteProp } from "@react-navigation/native";
-import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
-import { router } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
 
 type CertificateStackParamList = {
   certificate: undefined;

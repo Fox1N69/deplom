@@ -1,14 +1,9 @@
 import {
-  FlatList,
-  Modal,
   Pressable,
   StyleSheet,
   Text,
   View,
   useColorScheme,
-  useWindowDimensions,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
 } from "react-native";
 import {
   StackNavigationProp,
@@ -22,16 +17,9 @@ import {
 } from "@react-navigation/native";
 import HelpScreen from "app/home/HelpModal";
 import { HomeCard } from "@components/Home/HomeCard";
-import { H5, Image, ScrollView, XStack, YStack } from "tamagui";
+import { H5, ScrollView, XStack, YStack } from "tamagui";
 import AboutOrganization from "@components/Home/AboutOrganization";
 import AbitureScreen from "@components/Home/Abiture";
-import Animated, {
-  useAnimatedRef,
-  useAnimatedScrollHandler,
-  useSharedValue,
-} from "react-native-reanimated";
-import { useEffect, useRef, useState } from "react";
-import LottieView from "lottie-react-native";
 
 const Stack = createStackNavigator();
 
@@ -65,7 +53,7 @@ function HomeScreen() {
             borderBottomLeftRadius={10}
             scrollEventThrottle={16}
             bounces={true}
-            contentContainerStyle={{justifyContent: 'center'}}
+            contentContainerStyle={{ justifyContent: "center" }}
           >
             <XStack
               style={{
