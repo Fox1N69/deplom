@@ -5,7 +5,7 @@ export default function HelpScreen() {
   return (
     <View style={{ padding: 20, paddingTop: "50%", gap: 30 }}>
       <H4 style={{ textAlign: "center" }}>
-        Если возникли какие проблемы с работой приложения или есть предложения
+        Если возникли какие-то проблемы с работой приложения или есть предложения
         по его улучшению, напишите в тг: <Text>@fox1n69 </Text>{" "}
       </H4>
       <Paragraph>
