@@ -15,7 +15,9 @@ export default function AboutOrganization() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/about");
+        const response = await axios.get(
+          "https://mobile-rest.onrender.com/api/about"
+        );
         setAboutData(response.data);
       } catch (error) {
         console.error("Error fetching data: ", error);

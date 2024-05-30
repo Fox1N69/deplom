@@ -15,7 +15,7 @@ const GroupSelect = () => {
 
   useEffect(() => {
     axios
-      .get<Group[]>("http://localhost:8000/api/groups")
+      .get<Group[]>("https://mobile-rest.onrender.com/api/groups")
       .then((response) => {
         console.log(response.data); // Добавьте эту строку для проверки данных
         setGroups(response.data);
@@ -36,7 +36,7 @@ const GroupSelect = () => {
   const fetchSchedule = () => {
     axios
       .get(
-        `http://localhost:8000/api/class_week?date=${selectedDate}&group=${selectedGroup}`
+        `https://mobile-rest.onrender.com/api/class_week?date=${selectedDate}&group=${selectedGroup}`
       )
       .then((response) => {
         setSchedule(response.data);
