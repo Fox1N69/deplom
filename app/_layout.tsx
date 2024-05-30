@@ -4,14 +4,7 @@ import {
   NavigationContainer,
   ThemeProvider,
 } from "@react-navigation/native";
-import {
-  Link,
-  SplashScreen,
-  Stack,
-  useGlobalSearchParams,
-  useNavigationContainerRef,
-  usePathname,
-} from "expo-router";
+import { Link, SplashScreen, Stack } from "expo-router";
 import { Pressable, useColorScheme } from "react-native";
 import { TamaguiProvider, Text, XStack } from "tamagui";
 
@@ -19,11 +12,9 @@ import "../tamagui-web.css";
 
 import { config } from "../tamagui.config";
 import { useFonts } from "expo-font";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import WelcomScreen from "@components/Welcom/WelcomAnimation";
-import { ActiveRouteContext } from "./(tabs)/_layout";
-import { ToggleTheme } from "@components/ToggleTheme";
-import { ArrowBigLeft, ArrowLeftFromLine } from "@tamagui/lucide-icons";
+import { ArrowLeftFromLine } from "@tamagui/lucide-icons";
 
 export { ErrorBoundary } from "expo-router";
 
@@ -80,6 +71,10 @@ function RootLayoutNav() {
     );
   }
 
+  // Copyright (c) [2024] [Максимович Паве Вячеславович]
+  // Все права защищены. Использование, копирование и модификация этого кода
+  // без явного письменного согласия автора запрещены.
+
   return (
     <NavigationContainer>
       <TamaguiProvider config={config} defaultTheme={colorScheme as any}>
@@ -100,7 +95,7 @@ function RootLayoutNav() {
                 headerLeft: () => (
                   <Link href="/news" asChild>
                     <Pressable>
-                      <XStack style={{alignItems: 'center'}}>
+                      <XStack style={{ alignItems: "center" }}>
                         <ArrowLeftFromLine />
                         <Text> Назад</Text>
                       </XStack>

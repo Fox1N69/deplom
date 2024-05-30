@@ -15,6 +15,10 @@ export default function NewsDetail() {
   const theme = useColorScheme();
   const textColor = theme === "dark" ? "#fff" : "#000";
 
+  // Copyright (c) [2024] [Максимович Паве Вячеславович]
+  // Все права защищены. Использование, копирование и модификация этого кода
+  // без явного письменного согласия автора запрещены.
+
   useEffect(() => {
     fetch(`https://mobile-rest.onrender.com/api/news/${id}/full`)
       .then((response) => response.json())
@@ -26,7 +30,7 @@ export default function NewsDetail() {
     container: {
       paddingTop: 30,
       padding: 20,
-      backgroundColor: theme === "dark" ? "#000" : "#fff"
+      backgroundColor: theme === "dark" ? "#000" : "#fff",
     },
   });
 

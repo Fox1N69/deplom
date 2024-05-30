@@ -16,6 +16,10 @@ function ScheduleScreen() {
   );
 }
 
+// Copyright (c) [2024] [Максимович Паве Вячеславович]
+// Все права защищены. Использование, копирование и модификация этого кода
+// без явного письменного согласия автора запрещены.
+
 const Stack = createStackNavigator();
 
 export default function StackSchadule() {

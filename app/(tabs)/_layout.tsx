@@ -20,6 +20,9 @@ import {
 import { useColorScheme } from "react-native";
 import config from "tamagui.config";
 
+// Copyright (c) [2024] [Максимович Паве Вячеславович]
+// Все права защищены. Использование, копирование и модификация этого кода
+// без явного письменного согласия автора запрещены.
 const Tabs = AnimatedTabBarNavigator();
 
 export const ActiveRouteContext = createContext<string>("");

@@ -27,6 +27,9 @@ export function CertificateSelect({
   ...props
 }: SelectProps & { onSelect: (sectionId: number) => void }) {
   const [val, setVal] = useState("Выберите тип справки");
+  // Copyright (c) [2024] [Максимович Паве Вячеславович]
+  // Все права защищены. Использование, копирование и модификация этого кода
+  // без явного письменного согласия автора запрещены.
 
   return (
     <Select
@@ -43,8 +46,8 @@ export function CertificateSelect({
       disablePreventBodyScroll
       {...props}
     >
-      <Select.Trigger width={"100%"} iconAfter={ChevronDown} >
-        <Select.Value placeholder="Выберите тип справки"/>
+      <Select.Trigger width={"100%"} iconAfter={ChevronDown}>
+        <Select.Value placeholder="Выберите тип справки" />
       </Select.Trigger>
 
       <Adapt when="sm" platform="touch">

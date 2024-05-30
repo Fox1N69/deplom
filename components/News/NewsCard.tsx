@@ -23,6 +23,10 @@ interface NewsCardProps extends CardProps {
   backgroundContent?: React.ReactNode;
 }
 
+// Copyright (c) [2024] [Максимович Паве Вячеславович]
+// Все права защищены. Использование, копирование и модификация этого кода
+// без явного письменного согласия автора запрещены.
+
 export function NewsCard({
   image_url,
   title,
@@ -31,7 +35,6 @@ export function NewsCard({
   backgroundContent,
   ...cardProps
 }: NewsCardProps) {
-
   return (
     <Card elevate size="$4" bordered {...cardProps}>
       <Card.Header padded>

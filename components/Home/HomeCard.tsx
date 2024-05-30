@@ -21,6 +21,10 @@ interface HomeCardProps extends CardProps {
   backgroundContent?: React.ReactNode;
 }
 
+// Copyright (c) [2024] [Максимович Паве Вячеславович]
+// Все права защищены. Использование, копирование и модификация этого кода
+// без явного письменного согласия автора запрещены.
+
 export function HomeCard({
   image_url,
   title,

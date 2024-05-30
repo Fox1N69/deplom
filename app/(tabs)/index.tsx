@@ -28,6 +28,10 @@ function HomeScreen() {
   const textColor = theme === "dark" ? "white" : "black";
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
+  // Copyright (c) [2024] [Максимович Паве Вячеславович]
+  // Все права защищены. Использование, копирование и модификация этого кода
+  // без явного письменного согласия автора запрещены.
+
   return (
     <ThemeProvider value={theme === "dark" ? DarkTheme : DefaultTheme}>
       <View style={styles.container}>

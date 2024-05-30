@@ -44,6 +44,9 @@ export default function CertificateStack() {
         name="ArmyForm"
         component={ArmyForm}
         options={{ headerTitle: "Справка для военкомата" }}
+        // Copyright (c) [2024] [Максимович Паве Вячеславович]
+        // Все права защищены. Использование, копирование и модификация этого кода
+        // без явного письменного согласия автора запрещены.
       />
       <Stack.Screen
         name="FormAboutPayments"

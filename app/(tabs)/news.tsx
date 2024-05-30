@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, StyleSheet } from "react-native";
-import {  YStack, } from "tamagui";
-import {  router } from "expo-router";
+import { YStack } from "tamagui";
+import { router } from "expo-router";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NewsCard } from "@components/News/NewsCard";
+
+// Copyright (c) [2024] [Максимович Паве Вячеславович]
+// Все права защищены. Использование, копирование и модификация этого кода
+// без явного письменного согласия автора запрещены.
 
 interface NewsItem {
   id: number;
@@ -43,7 +47,9 @@ function NewsScreen() {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await fetch("https://mobile-rest.onrender.com/api/news");
+        const response = await fetch(
+          "https://mobile-rest.onrender.com/api/news"
+        );
         const data = (await response.json()) as NewsApiResponseItem[];
         const mappedData = data.map((item: NewsApiResponseItem) => ({
           id: item.id,
