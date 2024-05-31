@@ -37,6 +37,7 @@ export function HomeCard({
       <Card.Header padded>
         <H5
           style={{
+            lineHeight: 20,
             position: "absolute",
             left: 10,
             top: 8,
